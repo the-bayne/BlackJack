@@ -26,7 +26,7 @@ public class BettingActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BettingActivity.this, MainActivity.class);
+                Intent intent = new Intent(BettingActivity.this, GameFragment.class);
                 if(GetSet.bet == 0){
                     Toast.makeText(BettingActivity.this, "No free plays!  Enter a bet.", Toast.LENGTH_SHORT).show();
                 }

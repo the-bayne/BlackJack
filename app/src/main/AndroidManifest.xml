@@ -27,6 +27,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".ui.MainActivity">
         </activity>
+        <activity android:name=".ui.GameScreen"
+            android:label="Statistics"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.BettingActivity">
+        </activity>
     </application>
 
 </manifest>
