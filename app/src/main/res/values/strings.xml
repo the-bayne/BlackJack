@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BlackJack</string>
+    <string name="main_menu_logo">Main Menu Logo</string>
+    <string name="play_game">Play Game</string>
+    <string name="statistics">Statistics</string>
+    <string name="fueled_by_coffee">Fueled By Coffee</string>
+    <string name="bet_total_0">Bet Total:$ 0</string>
+    <string name="cash_total_3000">Cash Total:$ 3000</string>
+</resources>
