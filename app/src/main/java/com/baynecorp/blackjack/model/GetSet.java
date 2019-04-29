@@ -12,12 +12,15 @@ public class GetSet {
     public static int bet = 0;
     public static int horizontalMove = 0;
     public static int verticalMove = 400;
-    public static int isDouble = 0; // should be boolean
+    public static int isDouble = 0;
     public static int doubleAmount = 0;
-    public static int playerBust = 0; // should be boolean
+    public static int playerBust = 0;
     public static int playerBlackjack = 0;
     public static boolean isBlackJack = false;
     public static boolean isBust = false;
     public static int iswin = 0;
     public static int islose = 0;
+    public static int highScore = 0;
+    public static String playerName = "";
+    public static int currentScore = 0;
 }

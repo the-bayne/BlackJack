@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    tools:context="com.baynecorp.blackjack.ui.GameFragment"
+    tools:showIn="@layout/activity_gamescreen">
+    <!-- tools:showIn allows you to render layout_A in layout_B-->
+    <com.baynecorp.blackjack.ui.Panel
+        android:id="@+id/surfaceView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.baynecorp.blackjack.ui.Panel>
+    <!-- ???-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.90">
+
+        <TextView
+            android:id="@+id/playerScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cash"
+            android:layout_gravity="right|bottom"></TextView>
+
+        <TextView
+            android:id="@+id/dealerScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right|top"
+            android:paddingRight="35dp"></TextView>
+
+        <TextView
+            android:id="@+id/cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right|bottom"
+            android:layout_toLeftOf="@id/dealerScore"></TextView>
+
+        <TextView
+            android:id="@+id/bet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/playerScore"></TextView>
+
+        <Button
+            android:id="@+id/btnHit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@+id/btnRedeal"
+            android:layout_toRightOf="@+id/btnRedeal"
+            android:background="#000033"
+            android:onClick="clickMethodHit"
+            android:text="Hit"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></Button>
+
+        <Button
+            android:id="@+id/btnStand"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="right"
+            android:layout_toEndOf="@+id/btnHit"
+            android:layout_toRightOf="@+id/btnHit"
+            android:background="#000033"
+            android:onClick="clickMethodStand"
+            android:text="Stand"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></Button>
+
+        <Button
+            android:id="@+id/btnRedeal"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="#000033"
+            android:onClick="clickMethodRedeal"
+            android:text="Redeal"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></Button>
+
+        <Button
+            android:id="@+id/btnDouble"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="#000033"
+            android:onClick="clickMethodDouble"
+            android:text="Double"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"></Button>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

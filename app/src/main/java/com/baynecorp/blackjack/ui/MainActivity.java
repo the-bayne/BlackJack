@@ -1,6 +1,8 @@
 package com.baynecorp.blackjack.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +13,20 @@ import com.baynecorp.blackjack.R;
 public class MainActivity extends AppCompatActivity {
     Button play;
     Button stats;
+    MediaPlayer backgroundMusic;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //prefs = getSharedPreferences("Statistics", MODE_WORLD_READABLE);
+        //int highScore = prefs.getInt("highScore", )
+
+        backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.background_noise);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.start();
 
         play = findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
@@ -33,5 +44,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(stats);
             }
         });
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        backgroundMusic.release();
+        finish();
     }
 }

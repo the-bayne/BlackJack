@@ -1,16 +1,12 @@
 package com.baynecorp.blackjack.ui;
 
-import android.app.AlertDialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +17,16 @@ public class GameScreen extends AppCompatActivity {
     Button button;
     TextView textView = null;
     MediaPlayer mp;
-    AlertDialog.Builder sample;
-    ImageView image;
+    FragmentManager fragmentManager;
+    GameFragment fragment;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamescreen);
         button = findViewById(R.id.btnRedeal);
+        fragmentManager = getSupportFragmentManager();
+        fragment = (GameFragment)fragmentManager.findFragmentById(R.id.game_fragment);
+        textView = fragment.textViewPlayer;
     }
 
     private void playSound(int sound){
@@ -49,17 +48,17 @@ public class GameScreen extends AppCompatActivity {
             GetSet.dealerScore = 0;
             GetSet.hit++;
             GetSet.buttonPressed = 1;
-            //playSound(R.raw.dealing_card);
+            playSound(R.raw.dealing_card);
         }
 
     }
     public void clickMethodStand(View view){ // stand button
         GetSet.playerScore = 0;
         GetSet.dealerScore = 0;
-        GetSet.dealerHit = GetSet.hit; // when stand pressed, assign dealerHit to be equal to hit
+        GetSet.dealerHit = GetSet.hit;
         GetSet.buttonPressed = 1;
         GetSet.isStanding = true;
-//        playSound(R.raw.dealing_card);
+        playSound(R.raw.dealing_card);
     }
 
     public void clickMethodRedeal(View view){ // redeal button
@@ -69,13 +68,13 @@ public class GameScreen extends AppCompatActivity {
         else if(GetSet.dealerScore > 21){
             GetSet.cash = GetSet.cash + (GetSet.bet * 2);
         }
-        else if(GetSet.playerScore > GetSet.dealerScore && GetSet.playerScore< 21){
-            // Player win!!
+        else if(GetSet.playerScore > GetSet.dealerScore && GetSet.playerScore < 21){
+            // Player wins - add bet to cash
             GetSet.cash = GetSet.cash + (GetSet.bet * 2);
 
         }
         else{
-            // Dealer win! take betting amount
+            // Dealer wins - You lose your bet money
             GetSet.cash = GetSet.cash - GetSet.bet;
 
         }
@@ -88,7 +87,7 @@ public class GameScreen extends AppCompatActivity {
         GetSet.isDouble = 0;
         GetSet.playerBust = 0;
         GetSet.playerBlackjack = 0;
-        shuffleDeck(GetSet.card);
+        fragment.shuffleDeck(GetSet.card);
         playSound(R.raw.dealing_card);
         GetSet.horizontalMove = 0;
         GetSet.verticalMove = 400;
@@ -99,7 +98,8 @@ public class GameScreen extends AppCompatActivity {
     public void clickMethodDouble(View view){
         if(GetSet.isDouble == 1){
             Toast.makeText(GameScreen.this, "You cannot double twice", Toast.LENGTH_SHORT).show();
-
+            playSound(R.raw.difficult);
+            // Can't triple stamp a double stamp
         }
         else{
             GetSet.playerScore  = 0;
@@ -116,12 +116,4 @@ public class GameScreen extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.action_settings){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

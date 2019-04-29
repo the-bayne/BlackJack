@@ -1,6 +1,7 @@
 package com.baynecorp.blackjack.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.baynecorp.blackjack.model.GetSet;
 public class BettingActivity extends AppCompatActivity {
     MediaPlayer mp;
     Button enterButton;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor prefsEditor;
     
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,13 +29,13 @@ public class BettingActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BettingActivity.this, GameFragment.class);
+                Intent intent = new Intent(BettingActivity.this, GameScreen.class);
                 if(GetSet.bet == 0){
                     Toast.makeText(BettingActivity.this, "No free plays!  Enter a bet.", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     startActivity(intent);
-                    //playSound(R.raw.shuffle);
+                    playSound(R.raw.shuffle);
                 }
 
             }
