@@ -20,7 +20,12 @@ public class GetSet {
     public static boolean isBust = false;
     public static int iswin = 0;
     public static int islose = 0;
+
     public static int highScore = 0;
     public static String playerName = "";
     public static int currentScore = 0;
+    public static String highPlayerName = "";
+    public static int gamesWon = 0;
+    public static int gamesLost = 0;
+    public static int timesHit21 = 0;
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,11 @@ public class GameFragment extends Fragment {
     AlertDialog.Builder blackJackMessage;
     ImageView image;
 
+    private static final String TAG = "GameFragment";
+
+    //TODO:  Win/Lose show dialog with 2 options.  Keep playing or save/exit
+    //TODO:  Get rid of Redeal and autorun method on Keep playing selection and in the onCreate
+
     public GameFragment(){
 
     }
@@ -59,6 +65,12 @@ public class GameFragment extends Fragment {
         textViewBet = rootView.findViewById(R.id.bet);
         textViewBet.setTextColor(Color.WHITE);
         textViewBet.setTextSize(20);
+
+        Log.d(TAG, "Current Player is: " + GetSet.playerName);
+        Log.d(TAG, "High Score Player is: " + GetSet.highPlayerName);
+        Log.d(TAG, "High Score is: " + GetSet.highScore);
+        Log.d(TAG, "Current Player is: " + GetSet.playerName);
+        Log.d(TAG, "Current Player is: " + GetSet.playerName);
 
         deck = new CardDeck[52];
         for(int suit = 0; suit < 4; suit++){
@@ -95,6 +107,7 @@ public class GameFragment extends Fragment {
         //bustMessage.setView(dialogLayout);
         bustMessage.setMessage("Bust");
         playSound(R.raw.crap);
+        //TODO:  Add 1 to dealer win and commit
 
         final AlertDialog alert = bustMessage.create();
         alert.show();
@@ -119,6 +132,7 @@ public class GameFragment extends Fragment {
         //blackJackMessage.setView(dialogLayout);
         blackJackMessage.setMessage("Black Jack!!");
         playSound(R.raw.excellent);
+        //TODO:  Add 1 to 21 counter and commit
 
         final AlertDialog alert = blackJackMessage.create();
         alert.show();

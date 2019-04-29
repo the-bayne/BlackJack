@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer backgroundMusic;
     SharedPreferences prefs;
 
+    //TODO:  Add read pref data and assign the data to variable if can/if not then set them to 0
+    //TODO:  Stats:  High score, hands played, how many times player won, how many times dealer won, 21 counter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
