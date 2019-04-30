@@ -70,13 +70,12 @@
     <Button
         android:id="@+id/clear"
         android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/deal"
         android:layout_alignStart="@+id/deal"
         android:layout_alignLeft="@+id/deal"
-        android:layout_alignParentBottom="true"
+
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="15dp"
         android:alpha="0.6"
         android:background="#000033"
         android:onClick="clearBet"
@@ -87,7 +86,7 @@
     <Button
         android:id="@+id/deal"
         android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/fifty"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
@@ -107,6 +106,7 @@
         android:layout_marginTop="-100dp"
         android:layout_marginBottom="50dp"
         android:hint="Enter your name"
+        android:inputType="textNoSuggestions|textVisiblePassword"
         android:visibility="visible" />
 
 </RelativeLayout>

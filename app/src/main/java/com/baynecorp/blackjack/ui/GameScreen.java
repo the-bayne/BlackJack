@@ -62,37 +62,39 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void clickMethodRedeal(View view){ // redeal button
-        if (GetSet.playerScore > 21){
-            GetSet.cash = GetSet.cash - GetSet.bet;
-        }
-        else if(GetSet.dealerScore > 21){
-            GetSet.cash = GetSet.cash + (GetSet.bet * 2);
-        }
-        else if(GetSet.playerScore > GetSet.dealerScore && GetSet.playerScore < 21){
-            // Player wins - add bet to cash
-            GetSet.cash = GetSet.cash + (GetSet.bet * 2);
+        if (GetSet.cash > 0) {
+            if (GetSet.playerScore > 21) {
+                GetSet.cash = GetSet.cash - GetSet.bet;
+            } else if (GetSet.dealerScore > 21) {
+                GetSet.cash = GetSet.cash + (GetSet.bet * 2);
+            } else if (GetSet.playerScore > GetSet.dealerScore && GetSet.playerScore < 21) {
+                // Player wins - add bet to cash
+                GetSet.cash = GetSet.cash + (GetSet.bet * 2);
 
-        }
-        else{
-            // Dealer wins - You lose your bet money
-            GetSet.cash = GetSet.cash - GetSet.bet;
+            } else {
+                // Dealer wins - You lose your bet money
+                GetSet.cash = GetSet.cash - GetSet.bet;
 
+            }
+            GetSet.playerScore = 0;
+            GetSet.dealerScore = 0;
+            GetSet.hit = 3;
+            GetSet.dealerHit = 1;
+            GetSet.buttonPressed = 1;
+            GetSet.isStanding = false;
+            GetSet.isDouble = 0;
+            GetSet.playerBust = 0;
+            GetSet.playerBlackjack = 0;
+            fragment.shuffleDeck(GetSet.card);
+            playSound(R.raw.dealing_card);
+            GetSet.horizontalMove = 0;
+            GetSet.verticalMove = 400;
+            GetSet.iswin = 0;
+            GetSet.islose = 0;
+        } else {
+            Toast.makeText(GameScreen.this, "You are out of money!", Toast.LENGTH_SHORT).show();
+            System.exit(0);
         }
-        GetSet.playerScore = 0;
-        GetSet.dealerScore = 0;
-        GetSet.hit = 3;
-        GetSet.dealerHit = 1;
-        GetSet.buttonPressed = 1;
-        GetSet.isStanding = false;
-        GetSet.isDouble = 0;
-        GetSet.playerBust = 0;
-        GetSet.playerBlackjack = 0;
-        fragment.shuffleDeck(GetSet.card);
-        playSound(R.raw.dealing_card);
-        GetSet.horizontalMove = 0;
-        GetSet.verticalMove = 400;
-        GetSet.iswin = 0;
-        GetSet.islose = 0;
     }
 
     public void clickMethodDouble(View view){

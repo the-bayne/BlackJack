@@ -2,11 +2,14 @@ package com.baynecorp.blackjack.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +25,8 @@ import com.baynecorp.blackjack.model.GetSet;
 
 import java.util.Random;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class GameFragment extends Fragment {
     CardDeck[] deck;
     int n = 0;
@@ -34,7 +39,16 @@ public class GameFragment extends Fragment {
     MediaPlayer mp;
     AlertDialog.Builder bustMessage;
     AlertDialog.Builder blackJackMessage;
-    ImageView image;
+
+    int hit21 = GetSet.timesHit21;
+    int gamesWon = GetSet.gamesWon;
+    int gamesLost = GetSet.gamesLost;
+    String player = GetSet.playerName;
+    int highScore = GetSet.highScore;
+    int currentScore;
+
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor prefsEditor;
 
     private static final String TAG = "GameFragment";
 
@@ -66,11 +80,6 @@ public class GameFragment extends Fragment {
         textViewBet.setTextColor(Color.WHITE);
         textViewBet.setTextSize(20);
 
-        Log.d(TAG, "Current Player is: " + GetSet.playerName);
-        Log.d(TAG, "High Score Player is: " + GetSet.highPlayerName);
-        Log.d(TAG, "High Score is: " + GetSet.highScore);
-        Log.d(TAG, "Current Player is: " + GetSet.playerName);
-        Log.d(TAG, "Current Player is: " + GetSet.playerName);
 
         deck = new CardDeck[52];
         for(int suit = 0; suit < 4; suit++){
@@ -79,11 +88,13 @@ public class GameFragment extends Fragment {
                 n++;
             }
         }
+
+        prefs = this.getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         GetSet.card = deck;
         deck = shuffleDeck(deck);
 
         mHandler = new Handler();
-        mHandler.post(mUpdate); //??
+        mHandler.post(mUpdate);
         return rootView;
     }
 
@@ -99,14 +110,22 @@ public class GameFragment extends Fragment {
         mp.start();
     }
 
+    public void updatePrefs(String key, String value) {
+        prefsEditor = prefs.edit();
+        prefsEditor.putString(key, value);
+        prefsEditor.commit();
+        Log.d("Jared", "Current Score: " + currentScore + " High Score: " + highScore);
+    }
+
     public void bustDialog(){
         bustMessage = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogLayout;
-        //dialogLayout = inflater.inflate(bust_dialog,null);
-        //bustMessage.setView(dialogLayout);
-        bustMessage.setMessage("Bust");
+
+        bustMessage.setTitle("Busted Big Time !");
+        bustMessage.setMessage("Better luck next hand!");
         playSound(R.raw.crap);
+        gamesLost = gamesLost + 1;
+        updatePrefs("GamesLost", String.valueOf(gamesLost));
+        Log.d("Jared", "GamesLost: " + gamesLost);
         //TODO:  Add 1 to dealer win and commit
 
         final AlertDialog alert = bustMessage.create();
@@ -124,17 +143,30 @@ public class GameFragment extends Fragment {
         }.start();
     }
 
+    public void highScore() {
+        if (currentScore > highScore) {
+            updatePrefs("HighScore", String.valueOf(currentScore));
+            updatePrefs("HighScorePlayerName", player);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
     public void blackJackDialog(){
         blackJackMessage = new AlertDialog.Builder(getContext());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        //View dialogLayout = inflater.inflate(black_jack_dialog,null);
-        //blackJackMessage.setView(dialogLayout);
-        blackJackMessage.setMessage("Black Jack!!");
+        hit21 = hit21 + 1;
+        updatePrefs("Hit21", String.valueOf(hit21));
+        blackJackMessage.setTitle("You WON!");
+        blackJackMessage.setMessage("You hit 21!!!");
         playSound(R.raw.excellent);
-        //TODO:  Add 1 to 21 counter and commit
 
         final AlertDialog alert = blackJackMessage.create();
+
         alert.show();
         new CountDownTimer(3000, 1000) {
             @Override
@@ -152,8 +184,8 @@ public class GameFragment extends Fragment {
     private Runnable mUpdate = new Runnable() {
         @Override
         public void run() {
-            if (GetSet.playerScore == 21){
-                /// Black Jack
+            currentScore = GetSet.cash;
+            if (GetSet.playerScore == 21) {
                 textViewPlayer.setText("Player: " + GetSet.playerScore + " ");
                 textViewDealer.setText("Dealer: " + GetSet.dealerScore + " ");
                 textViewCash.setText("Cash: " + (GetSet.cash) + " ");
@@ -164,6 +196,7 @@ public class GameFragment extends Fragment {
                     GetSet.playerBlackjack = 1;
                 }
                 judgeWin();
+                highScore();
             }
 
             else if(GetSet.playerScore < 21){
@@ -171,6 +204,7 @@ public class GameFragment extends Fragment {
                 textViewDealer.setText("Dealer: " + GetSet.dealerScore + " ");
                 textViewCash.setText("Cash: " + (GetSet.cash) + " ");
                 textViewBet.setText("Bet: " + GetSet.bet + " ");
+                highScore();
             }
             else{
                 textViewPlayer.setText("Bust!");
@@ -178,32 +212,38 @@ public class GameFragment extends Fragment {
                     GetSet.playerBust = 1;
                 }
                 judgeWin();
+                highScore();
             }
-            if(GetSet.buttonPressed == 0){
-                if(GetSet.dealerHit > 1){
-                    if(GetSet.dealerScore < 17 && GetSet.dealerScore != 0){ // if the dealer's hands is less than 17, take another hit
+            if(GetSet.buttonPressed == 0) {
+                if(GetSet.dealerHit > 1) {
+                    if(GetSet.dealerScore < 17 && GetSet.dealerScore != 0){
                         GetSet.playerScore = 0;
                         GetSet.dealerScore = 0;
                         GetSet.dealerHit++;
                         GetSet.buttonPressed = 1;
+                        highScore();
                     }
                     else{
                         judgeWin();
+                        highScore();
                     }
                 }
             }
 
             if(GetSet.playerBlackjack == 1){
                 blackJackDialog();
+                highScore();
                 GetSet.playerBlackjack = 2;
             }
             if(GetSet.playerBust == 1){
                 bustDialog();
                 judgeWin();
+                highScore();
                 GetSet.playerBust = 2;
             }
             if(GetSet.playerBust > 1){
                 textViewDealer.setText("Dealer: " + GetSet.dealerScore + " ");
+                highScore();
             }
 
             mHandler.postDelayed(this,1); //Causes the Runnable r to be added to the message queue, to be run after the specified amount of time elapses
@@ -212,27 +252,31 @@ public class GameFragment extends Fragment {
 
     public void judgeWin(){
         if (GetSet.playerScore > 21){
-
+            highScore();
         }
         else if(GetSet.dealerScore > 21){
+            highScore();
             textViewDealer.setText("Bust!");
             if (GetSet.iswin == 0){
                 GetSet.iswin = 1;
             }
         }
         else if(GetSet.playerScore > GetSet.dealerScore){
+            highScore();
             if (GetSet.iswin == 0){
                 GetSet.iswin = 1;
             }
 
         }
         else if(GetSet.playerScore < GetSet.dealerScore){
+            highScore();
             if (GetSet.islose == 0){
                 GetSet.islose = 1;
             }
 
         }
         else if (GetSet.playerScore == GetSet.dealerScore){
+            highScore();
             textViewPlayer.setText("Push!");
             textViewDealer.setText("Push!");
         }
@@ -241,16 +285,22 @@ public class GameFragment extends Fragment {
         }
 
         if(GetSet.iswin == 1){
+            highScore();
             Context context = getContext();
             CharSequence text = "You Won!";
+            gamesWon = gamesWon + 1;
+            updatePrefs("GamesWon", String.valueOf(gamesWon));
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
             GetSet.iswin = 2;
         }
         if(GetSet.islose == 1){
+            highScore();
             Context context = getContext();
             CharSequence text = "You Lost!";
+            gamesLost = gamesLost + 1;
+            updatePrefs("GamesLost", String.valueOf(gamesLost));
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -263,8 +313,8 @@ public class GameFragment extends Fragment {
         CardDeck cardHolder = new CardDeck(0,0);
         for (int n = 0; n <52; n++){
             int randomIndex = random.nextInt(52);
-            cardHolder = deck[randomIndex]; // assign randomth card to the first card(cardHolder)
-            deck[randomIndex] = deck[n]; // assign the first card to randomth card (swapping the two cards)
+            cardHolder = deck[randomIndex];
+            deck[randomIndex] = deck[n];
             deck[n] = cardHolder;
 
         }

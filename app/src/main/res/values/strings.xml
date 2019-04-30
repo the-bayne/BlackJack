@@ -6,4 +6,10 @@
     <string name="fueled_by_coffee">Fueled By Coffee</string>
     <string name="bet_total_0">Bet Total:$ 0</string>
     <string name="cash_total_3000">Cash Total:$ 3000</string>
+    <string name="total_times_hit_21">Total Times Hit 21:</string>
+    <string name="high_score_champion">High Score Champion:</string>
+    <string name="total_games_won">Total Games Won:</string>
+    <string name="total_games_lost">Total Games Lost:</string>
+    <string name="high_score_player_s_name">High Score Player\'s Name:</string>
+    <string name="high_score">High Score:</string>
 </resources>

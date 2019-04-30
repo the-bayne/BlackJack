@@ -61,6 +61,12 @@ public class BettingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void playSound(int sound) {
         if (mp != null) {
             if (mp.isPlaying()||mp.isLooping()) {
@@ -88,6 +94,7 @@ public class BettingActivity extends AppCompatActivity {
         GetSet.bet = 0;
         displayCashTotal(GetSet.cash);
         displayBet(GetSet.bet);
+        playerName.setText("");
     }
 
     public void plusOne(View view){

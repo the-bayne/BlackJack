@@ -56,28 +56,29 @@
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_toEndOf="@+id/btnRedeal"
             android:layout_toRightOf="@+id/btnRedeal"
             android:background="#000033"
             android:onClick="clickMethodHit"
             android:text="Hit"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></Button>
+            android:textSize="18dp"></Button>
 
         <Button
             android:id="@+id/btnStand"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="right"
+            android:textAlignment="center"
+            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/btnHit"
             android:layout_toRightOf="@+id/btnHit"
             android:background="#000033"
             android:onClick="clickMethodStand"
             android:text="Stand"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></Button>
+            android:textSize="18dp"></Button>
 
         <Button
             android:id="@+id/btnRedeal"
@@ -92,7 +93,7 @@
             android:onClick="clickMethodRedeal"
             android:text="Redeal"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></Button>
+            android:textSize="18dp"></Button>
 
         <Button
             android:id="@+id/btnDouble"
@@ -106,7 +107,7 @@
             android:onClick="clickMethodDouble"
             android:text="Double"
             android:textColor="@android:color/white"
-            android:textSize="20dp"></Button>
+            android:textSize="18dp"></Button>
 
 
     </RelativeLayout>
