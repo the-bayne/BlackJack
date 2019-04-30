@@ -11,7 +11,7 @@ public class CanvasThread extends Thread {
     private Panel _panel;
     private boolean running = false;
 
-    public CanvasThread(SurfaceHolder surfaceHolder, Panel panel){
+    public CanvasThread(SurfaceHolder surfaceHolder, Panel panel) {
         _surfaceHolder = surfaceHolder;
         _panel = panel;
     }
@@ -21,20 +21,19 @@ public class CanvasThread extends Thread {
 
     @SuppressLint("WrongCall")
     @Override
-    public void run(){
+    public void run() {
         Canvas canvas;
         _panel.init();
-        while(running){
+        while(running) {
             canvas = null;
             try {
-//                sleep(30);
                 canvas = _surfaceHolder.lockCanvas(null);
                 synchronized (_surfaceHolder) {
                     _panel.onDraw(canvas);
                 }
             }
             finally {
-                if (canvas != null){
+                if (canvas != null) {
                     _surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }

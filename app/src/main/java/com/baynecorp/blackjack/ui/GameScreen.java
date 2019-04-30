@@ -42,7 +42,7 @@ public class GameScreen extends AppCompatActivity {
     }
 
 
-    public void clickMethodHit(View view){ // Hit button
+    public void clickMethodHit(View view) {
         if(GetSet.isStanding == false){
             GetSet.playerScore  = 0;
             GetSet.dealerScore = 0;
@@ -52,7 +52,7 @@ public class GameScreen extends AppCompatActivity {
         }
 
     }
-    public void clickMethodStand(View view){ // stand button
+    public void clickMethodStand(View view) {
         GetSet.playerScore = 0;
         GetSet.dealerScore = 0;
         GetSet.dealerHit = GetSet.hit;
@@ -61,7 +61,7 @@ public class GameScreen extends AppCompatActivity {
         playSound(R.raw.dealing_card);
     }
 
-    public void clickMethodRedeal(View view){ // redeal button
+    public void clickMethodRedeal(View view) {
         if (GetSet.cash > 0) {
             if (GetSet.playerScore > 21) {
                 GetSet.cash = GetSet.cash - GetSet.bet;

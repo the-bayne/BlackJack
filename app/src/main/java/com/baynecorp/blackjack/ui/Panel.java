@@ -18,12 +18,12 @@ import com.baynecorp.blackjack.model.GetSet;
 
 public class Panel extends SurfaceView implements SurfaceHolder.Callback {
     Paint paint;
-    private CanvasThread canvasthread; // Holds bitmap objects
+    private CanvasThread canvasthread;
     CardDraw cardDraw;
     int localScore;
     Bitmap bitmap;
 
-    public Panel(Context context, AttributeSet attrs){
+    public Panel(Context context, AttributeSet attrs) {
         super(context, attrs);
         getHolder().addCallback(this);
         canvasthread = new CanvasThread(getHolder(),this);
@@ -33,7 +33,7 @@ public class Panel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    public Panel(Context context){
+    public Panel(Context context) {
         super(context);
         getHolder().addCallback(this);
         canvasthread = new CanvasThread(getHolder(), this);
@@ -56,7 +56,7 @@ public class Panel extends SurfaceView implements SurfaceHolder.Callback {
                 cardDraw.dealTheCards(canvas,318, (80 * x), -200);
             }
             else{
-                if(GetSet.horizontalMove < 81){ // Push cards to correct spot on panel
+                if(GetSet.horizontalMove < 81) { // Push cards to correct spot on panel
                     GetSet.horizontalMove = GetSet.horizontalMove + 4;
                     GetSet.verticalMove = GetSet.verticalMove - 20;
                 }
@@ -65,11 +65,11 @@ public class Panel extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 cardDraw.dealTheCards(canvas,x, (GetSet.horizontalMove * x), GetSet.verticalMove);
             }
-            if (GetSet.buttonPressed == 1){
+            if (GetSet.buttonPressed == 1) {
                 addScore(x,false,true); // Stand
             }
         }
-        for (int n = 2; n <= 3; n++){ // New game so draw 2 cards for player
+        for (int n = 2; n <= 3; n++) { // New game so draw 2 cards for player
             if(GetSet.horizontalMove < 81) { // Push cards to correct spot on panel
                 GetSet.horizontalMove = GetSet.horizontalMove + 4;
                 GetSet.verticalMove = GetSet.verticalMove - 20;
@@ -110,7 +110,7 @@ public class Panel extends SurfaceView implements SurfaceHolder.Callback {
         GetSet.buttonPressed = 0;
     }
 
-    public void addScore(int n, boolean player,boolean dealer){
+    public void addScore(int n, boolean player,boolean dealer) {
         if(n == 0 && GetSet.dealerHit < 3) {
             localScore = 0;
         }else {

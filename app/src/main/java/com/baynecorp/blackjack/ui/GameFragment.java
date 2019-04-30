@@ -2,20 +2,17 @@ package com.baynecorp.blackjack.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +21,6 @@ import com.baynecorp.blackjack.model.CardDeck;
 import com.baynecorp.blackjack.model.GetSet;
 
 import java.util.Random;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class GameFragment extends Fragment {
     CardDeck[] deck;
@@ -49,11 +44,6 @@ public class GameFragment extends Fragment {
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor prefsEditor;
-
-    private static final String TAG = "GameFragment";
-
-    //TODO:  Win/Lose show dialog with 2 options.  Keep playing or save/exit
-    //TODO:  Get rid of Redeal and autorun method on Keep playing selection and in the onCreate
 
     public GameFragment(){
 
@@ -120,13 +110,11 @@ public class GameFragment extends Fragment {
     public void bustDialog(){
         bustMessage = new AlertDialog.Builder(getContext());
 
-        bustMessage.setTitle("Busted Big Time !");
+        bustMessage.setTitle("Busted Big Time!");
         bustMessage.setMessage("Better luck next hand!");
         playSound(R.raw.crap);
         gamesLost = gamesLost + 1;
         updatePrefs("GamesLost", String.valueOf(gamesLost));
-        Log.d("Jared", "GamesLost: " + gamesLost);
-        //TODO:  Add 1 to dealer win and commit
 
         final AlertDialog alert = bustMessage.create();
         alert.show();
@@ -246,7 +234,7 @@ public class GameFragment extends Fragment {
                 highScore();
             }
 
-            mHandler.postDelayed(this,1); //Causes the Runnable r to be added to the message queue, to be run after the specified amount of time elapses
+            mHandler.postDelayed(this,1);
         }
     };
 

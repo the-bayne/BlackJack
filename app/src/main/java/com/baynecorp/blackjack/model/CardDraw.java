@@ -70,7 +70,7 @@ public class CardDraw {
         back = Bitmap.createScaledBitmap(back,back.getWidth()/6,back.getHeight()/6,false);
 
         twoclubs = BitmapFactory.decodeResource(context.getResources(), R.drawable.twoclubs);
-        twoclubs = Bitmap.createScaledBitmap(twoclubs,twoclubs.getWidth()/6,twoclubs.getHeight()/6,false); // adjusting scale
+        twoclubs = Bitmap.createScaledBitmap(twoclubs,twoclubs.getWidth()/6,twoclubs.getHeight()/6,false);
         threeclubs = BitmapFactory.decodeResource(context.getResources(), R.drawable.threeclubs);
         threeclubs = Bitmap.createScaledBitmap(threeclubs,threeclubs.getWidth()/6,threeclubs.getHeight()/6,false);
         fourclubs = BitmapFactory.decodeResource(context.getResources(), R.drawable.fourclubs);
@@ -124,7 +124,7 @@ public class CardDraw {
         acehearts = Bitmap.createScaledBitmap(acehearts,acehearts.getWidth()/6,acehearts.getHeight()/6,false);
 
         twospades = BitmapFactory.decodeResource(context.getResources(), R.drawable.twospades);
-        twospades = Bitmap.createScaledBitmap(twospades,twospades.getWidth()/6,twospades.getHeight()/6,false); // adjusting scale
+        twospades = Bitmap.createScaledBitmap(twospades,twospades.getWidth()/6,twospades.getHeight()/6,false);
         threespades = BitmapFactory.decodeResource(context.getResources(), R.drawable.threespades);
         threespades = Bitmap.createScaledBitmap(threespades,threespades.getWidth()/6,threespades.getHeight()/6,false);
         fourspades = BitmapFactory.decodeResource(context.getResources(), R.drawable.fourspades);
@@ -191,7 +191,7 @@ public class CardDraw {
             if (GetSet.card[cardnum].suit == 0) {
 
                 if (GetSet.card[cardnum].rank == 0) {
-                    canvas.drawBitmap(twoclubs,(x/2) - 800 + xdistance,(y/2) + ydistance, null); // float left, float top
+                    canvas.drawBitmap(twoclubs,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
                 }
                 if (GetSet.card[cardnum].rank == 1) {
                     canvas.drawBitmap(threeclubs,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
@@ -232,7 +232,7 @@ public class CardDraw {
             }
             if (GetSet.card[cardnum].suit == 1){
                 if (GetSet.card[cardnum].rank == 0){
-                    canvas.drawBitmap(twohearts,(x/2) - 800 + xdistance,(y/2) + ydistance, null); // float left, float top
+                    canvas.drawBitmap(twohearts,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
                 }
                 if (GetSet.card[cardnum].rank == 1){
                     canvas.drawBitmap(threehearts,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
@@ -274,7 +274,7 @@ public class CardDraw {
             }
             if (GetSet.card[cardnum].suit == 2){
                 if (GetSet.card[cardnum].rank == 0){
-                    canvas.drawBitmap(twospades,(x/2) - 800 + xdistance,(y/2) + ydistance, null); // float left, float top
+                    canvas.drawBitmap(twospades,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
                 }
                 if (GetSet.card[cardnum].rank == 1){
                     canvas.drawBitmap(threespades,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
@@ -316,7 +316,7 @@ public class CardDraw {
             }
             if (GetSet.card[cardnum].suit == 3){
                 if (GetSet.card[cardnum].rank == 0){
-                    canvas.drawBitmap(twodiamonds,(x/2) - 800 + xdistance,(y/2) + ydistance, null); // float left, float top
+                    canvas.drawBitmap(twodiamonds,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
                 }
                 if (GetSet.card[cardnum].rank == 1){
                     canvas.drawBitmap(threediamonds,(x/2) - 800 + xdistance,(y/2) + ydistance, null);
